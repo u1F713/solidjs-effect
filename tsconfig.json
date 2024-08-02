@@ -19,6 +19,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "#integrations/*": ["./integrations/*"],
+      "~/*": ["./src/*"]
+    }
   }
 }
