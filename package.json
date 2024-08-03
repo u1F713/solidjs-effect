@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "@effect/schema": "^0.70.1",
+    "@vanilla-extract/css": "^1.15.3",
+    "@vanilla-extract/vite-plugin": "^4.0.13",
     "effect": "^3.6.0",
     "solid-js": "^1.8.18",
     "typescript": "^5.2.2",
