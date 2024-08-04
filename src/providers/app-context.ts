@@ -3,7 +3,7 @@ import {createContext} from 'solid-js'
 import type {SetStoreFunction, Store} from 'solid-js/store'
 
 export type AppContextType = {
-  text: string[]
+  items: {text: string}[]
 }
 
 export class AppContextTag extends Context.Tag('app-context')<

@@ -6,7 +6,7 @@ import {AppContext} from './app-context.ts'
 import {AppContextTag, type AppContextType} from './app-context.ts'
 
 const AppContextProvider: Component<{children: JSXElement}> = props => {
-  const [store, setStore] = createStore<AppContextType>({text: []})
+  const [store, setStore] = createStore<AppContextType>({items: []})
 
   const solidLive = Layer.succeed(
     AppContextTag,
