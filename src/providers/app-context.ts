@@ -1,9 +1,10 @@
 import {Context, type Effect} from 'effect'
 import {createContext} from 'solid-js'
 import type {SetStoreFunction, Store} from 'solid-js/store'
+import type {TodoListData} from '~/schemas/todo-list'
 
 export type AppContextType = {
-  items: {text: string}[]
+  items: TodoListData
 }
 
 export class AppContextTag extends Context.Tag('app-context')<
