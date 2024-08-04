@@ -2,6 +2,7 @@ import {Effect} from 'effect'
 import {type Component, type JSX, createSignal} from 'solid-js'
 import {AppContextTag} from '~/providers/app-context'
 import {useAppContext} from '~/providers/useAppContext'
+import * as styles from './TodoInput.css.ts'
 
 type FormEventHandle = JSX.EventHandler<
   HTMLFormElement,
@@ -24,13 +25,18 @@ const TodoInput: Component = () => {
   }
 
   return (
-    <form onSubmit={addItemEvent}>
+    <form class={styles.todoInputStyle} onSubmit={addItemEvent}>
       <input
+        class={styles.inputText}
         type="text"
         value={inputValue()}
         onChange={e => setInputValue(e.currentTarget.value)}
+        autocorrect="off"
+        autocapitalize="none"
+        autocomplete="off"
+        required
       />
-      <input type="submit" value="save item" />
+      <input class={styles.inputSubmit} type="submit" value="Save" />
     </form>
   )
 }
