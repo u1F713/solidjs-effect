@@ -1,7 +1,8 @@
 import {Schema} from '@effect/schema'
 
 export const TodoListTaskchema = Schema.Struct({
-  text: Schema.String
+  text: Schema.String,
+  done: Schema.optionalWith(Schema.Boolean, {default: () => false})
 })
 
 export type TodoListTaskchema = typeof TodoListTaskchema.Type
