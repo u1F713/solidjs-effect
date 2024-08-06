@@ -17,8 +17,8 @@ const TodoInput: Component = () => {
     event.preventDefault()
 
     const task = Effect.gen(function* () {
-      const {setAppContext} = yield* AppContextTag
-      setAppContext(({items}) => ({items: [...items, {text: inputValue()}]}))
+      const {appContext, actions} = yield* AppContextTag
+      actions.setTasks(appContext.tasks.length, {text: inputValue()})
       setInputValue('')
     })
     runPromise(task)

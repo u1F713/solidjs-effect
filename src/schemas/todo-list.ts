@@ -1,10 +1,8 @@
 import {Schema} from '@effect/schema'
 
-const TodoListSchema = Schema.Array(
-  Schema.Struct({
-    text: Schema.String
-  })
-)
+export const TodoListTaskchema = Schema.Struct({
+  text: Schema.String
+})
 
-export type TodoListData = typeof TodoListSchema.Type
-export const todoListDecode = Schema.decode(TodoListSchema)
+export type TodoListTaskchema = typeof TodoListTaskchema.Type
+export const decodeTodoList = Schema.decode(Schema.Array(TodoListTaskchema))

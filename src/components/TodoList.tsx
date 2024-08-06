@@ -11,22 +11,22 @@ const TodoList: Component = () => {
     (index: Accessor<number>): JSX.EventHandler<HTMLElement, MouseEvent> =>
     () => {
       const rmTask = Effect.gen(function* () {
-        const {appContext, setAppContext} = yield* AppContextTag
-        const items = yield* Effect.sync(() =>
-          appContext.items.filter((_, i) => i !== index())
+        const {appContext, actions} = yield* AppContextTag
+        const tasks = yield* Effect.sync(() =>
+          appContext.tasks.filter((_, i) => i !== index())
         )
 
-        setAppContext({items})
+        actions.setTasks(tasks)
       })
       runPromise(rmTask)
     }
 
   return (
     <ul class={styles.todoListStyle}>
-      <For each={state.items}>
-        {(item, index) => (
+      <For each={state.tasks}>
+        {(task, index) => (
           <li class={styles.listItem} onKeyPress={undefined}>
-            <span>{item.text}</span>
+            <span>{task.text}</span>
             <button
               class={styles.deleteBtn}
               onClick={removeItem(index)}
