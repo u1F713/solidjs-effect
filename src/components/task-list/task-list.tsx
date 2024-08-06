@@ -2,7 +2,7 @@ import {Effect} from 'effect'
 import {type Accessor, type Component, For, type JSX} from 'solid-js'
 import {AppContextTag} from '~/providers/app-context.ts'
 import {useAppContext} from '~/providers/useAppContext'
-import * as styles from './TodoList.css.ts'
+import * as styles from './task-list.css.ts'
 
 const TodoList: Component = () => {
   const [state, {runPromise}] = useAppContext()

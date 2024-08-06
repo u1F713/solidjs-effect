@@ -2,7 +2,7 @@ import {Effect} from 'effect'
 import {type Component, type JSX, createSignal} from 'solid-js'
 import {AppContextTag} from '~/providers/app-context'
 import {useAppContext} from '~/providers/useAppContext'
-import * as styles from './TodoInput.css.ts'
+import * as styles from './task-form.css.ts'
 
 type FormEventHandle = JSX.EventHandler<
   HTMLFormElement,
