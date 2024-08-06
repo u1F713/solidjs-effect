@@ -8,13 +8,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@effect/schema": "^0.70.1",
+    "@effect/schema": "^0.70.2",
     "@vanilla-extract/css": "^1.15.3",
     "@vanilla-extract/vite-plugin": "^4.0.13",
-    "effect": "^3.6.0",
-    "solid-js": "^1.8.18",
-    "typescript": "^5.2.2",
-    "vite": "^5.3.4",
+    "effect": "^3.6.1",
+    "solid-js": "^1.8.19",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5",
     "vite-plugin-solid": "^2.10.2",
     "vite-tsconfig-paths": "^4.3.2"
   }
