@@ -1,5 +1,5 @@
 import {Schema} from '@effect/schema'
-import {Effect, Either} from 'effect'
+import {Effect, Either, pipe} from 'effect'
 import {createEffect} from 'solid-js'
 import {createStore} from 'solid-js/store'
 
@@ -14,17 +14,13 @@ export function createLocalStorage<T extends object>(
   )
 
   createEffect(() => {
-    const validate = Effect.gen(function* () {
-      const decodeEither = yield* Effect.either(
-        Schema.decodeUnknown(schema)(state)
-      )
-
-      return Either.isLeft(decodeEither)
-        ? new Error()
-        : localStorage.setItem(key, JSON.stringify(state))
-    })
-
-    void Effect.runPromise(validate)
+    pipe(
+      Schema.decodeEither(schema)(state),
+      Either.mapBoth({
+        onLeft: Effect.die,
+        onRight: decode => localStorage.setItem(key, JSON.stringify(decode))
+      })
+    )
   })
 
   return [state, setState] as const
