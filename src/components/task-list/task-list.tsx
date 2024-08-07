@@ -25,7 +25,7 @@ const TodoList: Component = () => {
     <ul class={styles.todoListStyle}>
       <For each={state.tasks}>
         {(task, index) => (
-          <li class={styles.listItem} onKeyPress={undefined}>
+          <li class={styles.listItem} onKeyPress={() => undefined}>
             <span>{task.text}</span>
             <button
               class={styles.deleteBtn}
