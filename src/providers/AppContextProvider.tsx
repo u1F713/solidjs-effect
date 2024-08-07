@@ -3,15 +3,15 @@ import {Layer} from 'effect'
 import type {Component, JSXElement} from 'solid-js'
 import {createStore} from 'solid-js/store'
 import {createLocalStorage} from '~/composables/createLocalStorage.ts'
-import {TodoListTaskchema} from '~/schemas/todo-list.ts'
+import {TaskList} from '~/schemas/task-list.ts'
 import {makeSolidRuntime} from '#integrations/effect.ts'
 import {AppContext} from './app-context.ts'
 import {AppContextTag, type AppContextType} from './app-context.ts'
 
 const AppContextProvider: Component<{children: JSXElement}> = props => {
   const [tasks, setTasks] = createLocalStorage(
-    'todo-list/items',
-    Schema.mutable(Schema.Array(TodoListTaskchema)),
+    'task-list/items',
+    Schema.mutable(Schema.Array(TaskList)),
     []
   )
   const [store] = createStore<AppContextType>({tasks})
