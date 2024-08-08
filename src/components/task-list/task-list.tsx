@@ -1,44 +1,78 @@
-import {Effect} from 'effect'
-import {type Accessor, type Component, For, type JSX} from 'solid-js'
+import {Effect, pipe} from 'effect'
+import {type Accessor, type Component, For} from 'solid-js'
 import {AppContextTag} from '~/providers/app-context.ts'
 import {useAppContext} from '~/providers/useAppContext'
+import type {TaskList as Task} from '~/schemas/task-list.ts'
 import * as styles from './task-list.css.ts'
 
-const TodoList: Component = () => {
-  const [state, {runPromise}] = useAppContext()
+const TaskItem: Component<{task: Task; index: Accessor<number>}> = props => {
+  const [, {runPromise}] = useAppContext()
 
-  const removeItem =
-    (index: Accessor<number>): JSX.EventHandler<HTMLElement, MouseEvent> =>
-    () => {
-      const rmTask = Effect.gen(function* () {
-        const {appContext, actions} = yield* AppContextTag
-        const tasks = yield* Effect.sync(() =>
-          appContext.tasks.filter((_, i) => i !== index())
-        )
-
-        actions.setTasks(tasks)
+  const deleteTask = (index: number) =>
+    pipe(
+      AppContextTag,
+      Effect.map(({actions: {setTasks}}) => {
+        setTasks(t => t.filter((_, i) => i !== index))
       })
-      runPromise(rmTask)
-    }
+    )
+
+  const toggleDone = (index: number) =>
+    pipe(
+      AppContextTag,
+      Effect.map(({actions: {setTasks}}) =>
+        setTasks(index, prev => ({done: !prev.done}))
+      )
+    )
 
   return (
-    <ul class={styles.todoListStyle}>
+    <li class={styles.taskItemStyle}>
+      <p
+        class={styles.taskBody}
+        data-state={props.task.done ? 'done' : null}
+        onKeyPress={() => undefined}
+        onClick={() => runPromise(toggleDone(props.index()))}
+      >
+        {props.task.text}
+      </p>
+      <button
+        class={styles.deleteBtn}
+        onClick={() => runPromise(deleteTask(props.index()))}
+        type="button"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="2em"
+          height="2em"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-trash-2"
+        >
+          <title>delete</title>
+          <path d="M3 6h18" />
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+          <line x1="10" x2="10" y1="11" y2="17" />
+          <line x1="14" x2="14" y1="11" y2="17" />
+        </svg>
+      </button>
+    </li>
+  )
+}
+
+const TaskList: Component = () => {
+  const [state] = useAppContext()
+
+  return (
+    <ul class={styles.taskListStyle}>
       <For each={state.tasks}>
-        {(task, index) => (
-          <li class={styles.listItem} onKeyPress={() => undefined}>
-            <span>{task.text}</span>
-            <button
-              class={styles.deleteBtn}
-              onClick={removeItem(index)}
-              type="button"
-            >
-              x
-            </button>
-          </li>
-        )}
+        {(task, index) => <TaskItem index={index} task={task} />}
       </For>
     </ul>
   )
 }
 
-export default TodoList
+export default TaskList

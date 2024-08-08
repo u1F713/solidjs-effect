@@ -6,10 +6,5 @@ export const containerStyle = style({
   maxWidth: '40em',
   margin: '1em auto',
   padding: '1em',
-  gap: '2em',
-
-  borderColor: 'oklch(26.45% 0.01 268.31)',
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderRadius: '5px'
+  gap: '2em'
 })
